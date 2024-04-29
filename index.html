@@ -1,11 +1,115 @@
-<html>
+<!DOCTYPE html><html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Revista Quinta Esencia nº 28</title>
-<link rel="stylesheet" type="text/css" href="cleanframes/green.css">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta charset="UTF-8">
+<title>Slideshow</title>
+<style>
+	html {
+		background-image: url(revista_quinta_esencia_n_28/.jpeg);
+		background-position: center; 
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-attachment: fixed;
+		transition: background 3s;
+		transform: translate3d(0,0,0);
+	}
+	#controls {
+		position: absolute;
+		left: 0;
+		right: 0;
+		text-align: center;
+	
+	}
+	.control {
+		cursor: pointer;
+	}
+	</style>
 </head>
-<frameset cols="569,*" noresize border="0">
-<frame src="thmbs.html" name="mythmbs">
-<frame src="blank.html" name="image">
-</frameset>
+<body>
+<div id="controls"></div>
+<script>
+var controls = document.getElementById('controls');
+var speed = 300000; 
+var currentImg = 0;
+var img = [
+
+		"revista_quinta_esencia_n_28/.jpeg",
+		
+		"revista_quinta_esencia_n_28/2.jpeg",
+		
+		"revista_quinta_esencia_n_28/3.jpeg",
+		
+		"revista_quinta_esencia_n_28/4.jpeg",
+		
+		"revista_quinta_esencia_n_28/5.jpeg",
+		
+		"revista_quinta_esencia_n_28/6.jpeg",
+		
+		"revista_quinta_esencia_n_28/7.jpeg",
+		
+		"revista_quinta_esencia_n_28/8.jpeg",
+		
+		"revista_quinta_esencia_n_28/9.jpeg",
+		
+		"revista_quinta_esencia_n_28/10.jpeg",
+		
+		"revista_quinta_esencia_n_28/11.jpeg",
+		
+		"revista_quinta_esencia_n_28/12.jpeg",
+		
+		"revista_quinta_esencia_n_28/13.jpeg",
+		
+		"revista_quinta_esencia_n_28/14.jpeg",
+		
+		"revista_quinta_esencia_n_28/15.jpeg",
+		
+		"revista_quinta_esencia_n_28/16.jpeg",
+		
+		"revista_quinta_esencia_n_28/17.jpeg",
+		
+		"revista_quinta_esencia_n_28/18.jpeg",
+		
+		"revista_quinta_esencia_n_28/19.jpeg",
+		
+		"revista_quinta_esencia_n_28/20.jpeg",
+		
+    ];
+
+function stopAtImg(index) {
+    return function() {
+        clearInterval(timer);
+        buttons[currentImg].checked = false;
+        currentImg = index;
+        switchToImg();
+    };
+}
+
+function switchToImg() {
+    document.documentElement.style.backgroundImage = "url('" + img[currentImg] + "')";
+    buttons[currentImg].checked = true;
+    buttons[currentImg].focus();
+}
+
+if (controls) {
+    for (var i = 0; i < img.length; i++ ) {
+        var el = document.createElement("input");
+        el.type = 'radio';
+        el.className = 'control';
+        if ( i == 0 ) { el.checked = true; }
+        controls.appendChild(el);
+    }
+    var buttons = controls.querySelectorAll('.control');
+    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener("click", stopAtImg(i));
+    }
+    buttons[0].focus();
+    var timer = setInterval(function() {
+        buttons[currentImg].checked = false;
+        currentImg++;
+        if (currentImg == img.length) { currentImg = 0;}
+        switchToImg(currentImg);
+    }, speed);
+}
+</script>
+</body>
 </html>
